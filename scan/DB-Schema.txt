@@ -1,0 +1,47 @@
+MySQL [(none)]> show databases;
++---------------------------+
+| Database                  |
++---------------------------+
+| information_schema        |
+| mysql                     |
+| performance_schema        |
+| syseng_scan               |
++---------------------------+
+4 rows in set (0.00 sec)
+
+MySQL [syseng_scan]> show tables;
++-----------------------+
+| Tables_in_syseng_scan |
++-----------------------+
+| scan_results          |
+| scan_target           |
++-----------------------+
+2 rows in set (0.00 sec)
+
+CREATE TABLE `scan_target` (
+  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `Resource` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ResourceType` varchar(7) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `RecordType` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Target` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `EntryCreationTime` datetime DEFAULT CURRENT_TIMESTAMP,
+  `LastSuccessfulCheck` datetime DEFAULT NULL,
+  `MonitoringEnabled` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UniqueResource` (`Resource`,`Target`)
+) ENGINE=InnoDB AUTO_INCREMENT=302991 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+CREATE TABLE `scan_results` (
+  `Id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `ResourceId` int(11) unsigned DEFAULT NULL,
+  `OpenPort` int(11) unsigned NOT NULL,
+  `Protocol` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `DateFirstFound` datetime NOT NULL,
+  `DateLastFound` datetime NOT NULL,
+  `DateAccepted` datetime DEFAULT NULL,
+  `MonitoringEnabled` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UniquePortMap` (`ResourceId`,`OpenPort`,`Protocol`),
+  CONSTRAINT `scan_results_ibfk_1` FOREIGN KEY (`ResourceId`) REFERENCES `scan_target` (`Id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11875 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+

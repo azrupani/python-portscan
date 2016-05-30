@@ -1,0 +1,22 @@
+.table, th, td {
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+
+.sub-table, .sub-table-tr, .sub-table-td, .sub-table-td-ack {
+	border: none;
+	text-align: left;
+}
+
+.sub-table-td-ack {
+	width: 7em;  height: 3em;
+}
+
+.value-center {
+	text-align: center;
+}
+
+th {
+	padding: 12px;
+	text-align: center;
+}

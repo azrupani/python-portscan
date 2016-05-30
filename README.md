@@ -1,0 +1,3 @@
+- nmap_scan.py to run the scan and store results in the DB
+- monitoring-plugins/ scripts which can be used to perform monitoring on the state of the results
+- website/ very simple html page to acknowledge open ports
